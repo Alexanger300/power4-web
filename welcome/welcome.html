@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Puissance 4</title>
+</head>
+<body>
+    <h1>Bienvenue sur Puissance 4</h1>
+    <button id="btnAction">Nouvelle partie</button>
+    <pre id="output"></pre>
+
+    <script>
+        // Quand on clique sur le bouton
+        document.getElementById("btnAction").addEventListener("click", () => {
+            fetch("/run")               // Appel du serveur Go sur la route /run
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("output").textContent = data;
+            });
+        });
+    </script>
+</body>
+</html>
