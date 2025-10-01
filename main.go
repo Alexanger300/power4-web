@@ -4,19 +4,41 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"power4-web/game"
+	"strconv"
 )
 
-func main() {
-	// Route pour servir les fichiers statiques dans welcome/
-	http.Handle("/", http.FileServer(http.Dir("./welcome")))
+var currentGame *game.Game
 
-	// Route qui lance l'action quand le bouton est cliqué
-	http.HandleFunc("/run", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/plain")
-		// Ici tu peux mettre n'importe quel programme Go
-		result := "Action exécutée côté serveur !"
-		fmt.Fprint(w, result)
+func main() {
+	// Page d’accueil
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./welcome/welcome.html")
 	})
+
+	// Démarrer une partie
+	http.HandleFunc("/start", func(w http.ResponseWriter, r *http.Request) {
+		currentGame = game.NewGame()
+		w.Header().Set("Content-Type", "text/plain")
+		fmt.Fprint(w, currentGame.BoardText())
+	})
+
+	// Jouer un coup
+	http.HandleFunc("/play", func(w http.ResponseWriter, r *http.Request) {
+		if currentGame == nil {
+			http.Error(w, "Aucune partie en cours", http.StatusBadRequest)
+			return
+		}
+		colStr := r.URL.Query().Get("col")
+		col, err := strconv.Atoi(colStr)
+		if err != nil || !currentGame.DropDisc(col) {
+			fmt.Fprint(w, currentGame.BoardText())
+			return
+		}
+		fmt.Fprint(w, currentGame.BoardText())
+	})
+
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
 
 	port := ":8080"
 	fmt.Printf("Serveur démarré sur http://localhost%s\n", port)
