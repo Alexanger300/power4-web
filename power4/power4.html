@@ -20,7 +20,6 @@
 const difficulty = localStorage.getItem('difficulty') || 'facile';
 let rows, cols;
 
-// Définir la taille de la grille selon la difficulté
 if (difficulty === 'facile') { rows = 6; cols = 7; }
 else if (difficulty === 'moyen') { rows = 6; cols = 9; }
 else if (difficulty === 'difficile') { rows = 7; cols = 8; }
@@ -31,13 +30,13 @@ const winnerDiv = document.getElementById('winnerMessage');
 const restartBtn = document.getElementById('restartBtn');
 
 let board = Array.from({ length: rows }, () => Array(cols).fill(''));
-let currentPlayer = 'Paris'; // commence
+let currentPlayer = 'Paris';
 
-// Adapter la grille CSS selon la taille
+// Adapter la grille CSS
 boardDiv.style.gridTemplateRows = `repeat(${rows}, 55px)`;
 boardDiv.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
 
-// Générer les boutons de colonnes dynamiquement
+// Générer les boutons de colonnes dynamiques
 for (let c = 0; c < cols; c++) {
     const btn = document.createElement('button');
     btn.textContent = c + 1;
@@ -52,7 +51,6 @@ function renderBoard() {
             const cell = document.createElement('div');
             cell.classList.add('cell');
 
-            // Ajouter l'image si la case est remplie
             if (board[r][c]) {
                 const img = document.createElement('img');
                 img.src = board[r][c] === 'Paris' ? '/css/images/PSG.png' : '/css/images/BAR.png';
@@ -107,7 +105,7 @@ function play(col) {
             board[r][col] = currentPlayer;
             break;
         }
-        if (r === 0) return; // colonne pleine
+        if (r === 0) return;
     }
     renderBoard();
 

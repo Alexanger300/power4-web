@@ -32,12 +32,10 @@ h1 {
 /* Plateau du jeu */
 #board {
     display: grid;
-    grid-template-rows: repeat(6, 55px);
-    grid-template-columns: repeat(7, 55px);
     gap: 5px;
     margin: 0 auto 15px auto;
     justify-content: center;
-    background-color: #096ea6; /* couleur bleue du plateau */
+    background-color: #096ea6;
     max-width: 600px;
     padding: 10px;
 }
