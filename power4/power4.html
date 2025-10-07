@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Puissance 4</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Puissance 4</h1>
+
+  <!-- Boutons colonnes -->
+  <div id="columns"></div>
+
+  <!-- Grille -->
+  <div id="board"></div>
+  <div id="winnerMessage" style="font-size: 24px; color: green; margin-top: 10px;"></div>
+  <button id="restartBtn" style="display:none; margin-top:10px;">Nouvelle partie</button>
+
+<script>
+const difficulty = localStorage.getItem('difficulty') || 'facile';
+let rows, cols;
+
+// Définir la taille de la grille selon la difficulté
+if (difficulty === 'facile') { rows = 6; cols = 7; }
+else if (difficulty === 'moyen') { rows = 6; cols = 9; }
+else if (difficulty === 'difficile') { rows = 7; cols = 8; }
+
+const boardDiv = document.getElementById('board');
+const columnsDiv = document.getElementById('columns');
+const winnerDiv = document.getElementById('winnerMessage');
+const restartBtn = document.getElementById('restartBtn');
+
+let board = Array.from({ length: rows }, () => Array(cols).fill(''));
+let currentPlayer = 'Paris'; // commence
+
+// Adapter la grille CSS selon la taille
+boardDiv.style.gridTemplateRows = `repeat(${rows}, 55px)`;
+boardDiv.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
+
+// Générer les boutons de colonnes dynamiquement
+for (let c = 0; c < cols; c++) {
+    const btn = document.createElement('button');
+    btn.textContent = c + 1;
+    btn.addEventListener('click', () => play(c));
+    columnsDiv.appendChild(btn);
+}
+
+function renderBoard() {
+    boardDiv.innerHTML = '';
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+
+            // Ajouter l'image si la case est remplie
+            if (board[r][c]) {
+                const img = document.createElement('img');
+                img.src = board[r][c] === 'Paris' ? '/css/images/PSG.png' : '/css/images/BAR.png';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.borderRadius = '50%';
+                cell.appendChild(img);
+            }
+
+            boardDiv.appendChild(cell);
+        }
+    }
+}
+
+function checkWinner() {
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const p = board[r][c];
+            if (!p) continue;
+
+            // Horizontal
+            if (c + 3 < cols &&
+                board[r][c+1] === p &&
+                board[r][c+2] === p &&
+                board[r][c+3] === p) return p;
+
+            // Vertical
+            if (r + 3 < rows &&
+                board[r+1][c] === p &&
+                board[r+2][c] === p &&
+                board[r+3][c] === p) return p;
+
+            // Diagonale droite-bas
+            if (r + 3 < rows && c + 3 < cols &&
+                board[r+1][c+1] === p &&
+                board[r+2][c+2] === p &&
+                board[r+3][c+3] === p) return p;
+
+            // Diagonale gauche-bas
+            if (r + 3 < rows && c - 3 >= 0 &&
+                board[r+1][c-1] === p &&
+                board[r+2][c-2] === p &&
+                board[r+3][c-3] === p) return p;
+        }
+    }
+    return null;
+}
+
+function play(col) {
+    for (let r = rows - 1; r >= 0; r--) {
+        if (board[r][col] === '') {
+            board[r][col] = currentPlayer;
+            break;
+        }
+        if (r === 0) return; // colonne pleine
+    }
+    renderBoard();
+
+    const winner = checkWinner();
+    if (winner) {
+        winnerDiv.textContent = `Le gagnant est : ${winner}`;
+        disableButtons();
+        restartBtn.style.display = 'inline-block';
+        return;
+    }
+
+    if (board.flat().every(cell => cell !== '')) {
+        winnerDiv.textContent = "Match nul !";
+        disableButtons();
+        restartBtn.style.display = 'inline-block';
+        return;
+    }
+
+    currentPlayer = currentPlayer === 'Paris' ? 'Barcelone' : 'Paris';
+}
+
+function disableButtons() {
+    document.querySelectorAll('#columns button').forEach(btn => btn.disabled = true);
+}
+
+restartBtn.addEventListener('click', () => {
+    board = Array.from({ length: rows }, () => Array(cols).fill(''));
+    currentPlayer = 'Paris';
+    winnerDiv.textContent = '';
+    restartBtn.style.display = 'none';
+    document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
+    renderBoard();
+});
+
+renderBoard();
+</script>
+</body>
+</html>
