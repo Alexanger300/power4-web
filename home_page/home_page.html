@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil Puissance 4</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Bienvenue au Puissance 4</h1>
+  <h2>Choisissez la difficulté</h2>
+  <button onclick="chooseDifficulty('facile')">Facile</button>
+  <button onclick="chooseDifficulty('moyen')">Moyen</button>
+  <button onclick="chooseDifficulty('difficile')">Difficile</button>
+
+  <script>
+    function chooseDifficulty(level) {
+      // Stocker la difficulté dans le stockage local
+      localStorage.setItem('difficulty', level);
+      // Rediriger vers la page du jeu
+      window.location.href = '/power4/power4.html';
+    }
+  </script>
+</body>
+</html>

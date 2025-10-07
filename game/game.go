@@ -1,6 +1,8 @@
 package game
 
-import "strings"
+import (
+	"strings"
+)
 
 const (
 	Rows = 6
@@ -66,7 +68,10 @@ func (g *Game) BoardText() string {
 
 	if g.Winner != "" {
 		sb.WriteString("Winner: " + g.Winner + "\n")
+	} else {
+		sb.WriteString("CurrentPlayer: " + g.Player + "\n")
 	}
+
 	return sb.String()
 }
 
