@@ -9,12 +9,14 @@
   <h1>Puissance 4</h1>
 
   <!-- Boutons colonnes -->
+  <div id="currentPlayer" style="font-size: 20px; margin-bottom: 10px; color: blue;"></div>
   <div id="columns"></div>
 
   <!-- Grille -->
   <div id="board"></div>
   <div id="winnerMessage" style="font-size: 24px; color: green; margin-top: 10px;"></div>
   <button id="restartBtn" style="display:none; margin-top:10px;">Nouvelle partie</button>
+  
 
 <script>
 const difficulty = localStorage.getItem('difficulty') || 'facile';
@@ -31,7 +33,7 @@ const restartBtn = document.getElementById('restartBtn');
 
 let board = Array.from({ length: rows }, () => Array(cols).fill(''));
 let currentPlayer = 'Paris';
-
+document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
 // Adapter la grille CSS
 boardDiv.style.gridTemplateRows = `repeat(${rows}, 55px)`;
 boardDiv.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
@@ -108,6 +110,8 @@ function play(col) {
         if (r === 0) return;
     }
     renderBoard();
+    document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
+
 
     const winner = checkWinner();
     if (winner) {
@@ -123,8 +127,8 @@ function play(col) {
         restartBtn.style.display = 'inline-block';
         return;
     }
-
     currentPlayer = currentPlayer === 'Paris' ? 'Barcelone' : 'Paris';
+    document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
 }
 
 function disableButtons() {
@@ -138,9 +142,11 @@ restartBtn.addEventListener('click', () => {
     restartBtn.style.display = 'none';
     document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
     renderBoard();
+
 });
 
 renderBoard();
+
 </script>
 </body>
 </html>
