@@ -118,6 +118,7 @@ func ServeGameHandlers() {
 			return
 		}
 		Play(col)
+
 		json.NewEncoder(w).Encode(game)
 	})
 
