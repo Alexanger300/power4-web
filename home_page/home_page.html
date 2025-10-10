@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil Puissance 4</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class = "home_page-body">
+  <button class="tooltip-btn">
+  Règles
+  <span class="tooltip-text"> 1 2 3 4 Tu Gagnes :D</span>
+</button>
+  <h1>Bienvenue au Puissance 4</h1>
+  <h2>Choisissez la difficulté</h2>
+<div id="difficulty">
+  <button class="diff-btn" data-diff="facile" onclick="chooseDifficulty('facile')">Facile</button>
+  <button class="diff-btn" data-diff="moyen" onclick="chooseDifficulty('moyen')">Moyen</button>
+  <button class="diff-btn" data-diff="difficile" onclick="chooseDifficulty('difficile')">Difficile</button>
+</div>
+
+
+  <script>
+    function chooseDifficulty(level) {
+      localStorage.setItem('difficulty', level);
+      window.location.href = '/power4/power4.html';
+    }
+  </script>
+</body>
+</html>
