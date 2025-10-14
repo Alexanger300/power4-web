@@ -4,20 +4,24 @@
     margin: 0;
     padding: 20px;
     background-image: url("https://d20b489as5fsg0.cloudfront.net/media/cache/product_page_slider/cd/ea/187cd6231c174fa26a1cde014177.jpg");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 123% auto;
 }
 h1 {
-    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-family: 'Arial Black', sans-serif;
     color: #e74c3c; /* rouge vif type maillot */
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 2px 2px #000; /* effet relief */
 }
 h2 {
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    color: #ff1900; /* rouge vif type maillot */
+    font-family:'Arial Black', sans-serif;
+    color: #001eff; /* rouge vif type maillot */
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 2px 2px #000; /* effet relief */
+    text-shadow: 1px 2px #000; /* effet relief */
 }
 /* Boutons colonnes */
 #columns {
@@ -25,7 +29,7 @@ h2 {
 }
 
 #columns button {
-    background: #F7350F;
+    background: #f83104;
     border: none;
     padding: 10px 15px;
     margin: 8px;
@@ -45,6 +49,7 @@ h2 {
     background-color: #096ea6;
     max-width: 600px;
     padding: 10px;
+    border-radius: 15px;
 }
 
 .row {
@@ -82,11 +87,32 @@ h2 {
 .diff-btn[data-diff="difficile"] {
     background-color: #c0392b; /* rouge */
 }
-
+.diff-btn2 {
+    background-color: #34495e; /* gris foncé */
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 100px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+}
+.deconnexion:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
 /* Hover : effet interactif */
 .diff-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px #444;
+}
+.diff-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px #444;
 }
 
 /* Effet quand le bouton est cliqué */
@@ -107,13 +133,15 @@ h2 {
     background-color: #3498db;
     color: white;
 }
-
+.tooltip-btn:hover {
+    background-color: #172129;
+}
 /* L’info-bulle, cachée par défaut */
 .tooltip-btn .tooltip-text {
     visibility: hidden;       /* caché au départ */
     width: 200px;
-    background-color: black;
-    color: #fff;
+    background-color: rgb(0, 0, 0);
+    color: #d40a0a;
     text-align: center;
     padding: 6px 8px;
     border-radius: 6px;
@@ -159,16 +187,82 @@ h2 {
     background-repeat: no-repeat;
 }
 
+
+.home_button{  
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 8px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+    background-color: #3498db; /* bleu */
+}
+#login-title {
+    font-family: 'Arial Black', sans-serif;
+    color: #f92e0a; /* rouge vif type maillot */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px #000; /* effet relief */
+    text-align: center;
+    margin: 100px auto;
+    font-size: 32px;
+}
 .login-container {
     max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
+    margin: 100px auto;
+    padding: 30px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.login-container {
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-bottom: 20px;
+    position: relative;
 }
+
+label[for="username"]{
+    font-family: 'Arial Black', cursive;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+label[for="password"],label[for="email"]{
+    font-family: 'Arial Black', cursive;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+#password, #username, #email{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+button[type="submit"] {
+    font-family: 'Arial Black', cursive;
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+p{ /*pour le lien vers l'inscription*/
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+address {
+    font-style: normal;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
