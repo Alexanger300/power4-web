@@ -1,0 +1,320 @@
+.home_page-body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-image: url("https://d20b489as5fsg0.cloudfront.net/media/cache/product_page_slider/cd/ea/187cd6231c174fa26a1cde014177.jpg");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 123% auto;
+}
+html, body {
+    height: 100%;
+}
+
+h1 {
+    font-family:'Arial Black', sans-serif;
+    color: #ff5a47; /* rouge vif type maillot */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 2px #000; /* effet relief */
+}
+h2 {
+    font-family:'Arial Black', sans-serif;
+    color: #001eff; /* rouge vif type maillot */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 2px #000; /* effet relief */
+}
+/* Boutons colonnes */
+#columns {
+    margin-bottom: 15px;
+}
+
+#columns button {
+    background: #f83104;
+    border: none;
+    padding: 10px 15px;
+    margin: 8px;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* Plateau du jeu */
+#board {
+    display: grid;
+    gap: 5px;
+    margin: 0 auto 15px auto;
+    justify-content: center;
+    background-color: #096ea6;
+    max-width: 600px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.row {
+    display: contents;
+}
+
+.cell {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+.diff-btn {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 20px 25px;
+    margin: 20px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+}
+
+/* Couleurs selon la difficulté */
+.diff-btn[data-diff="facile"] {
+    background-color: #33ca11; /* vert */
+}
+.diff-btn[data-diff="moyen"] {
+    background-color: #f39c12; /* orange */
+}
+.diff-btn[data-diff="difficile"] {
+    background-color: #c0392b; /* rouge */
+}
+.diff-btn2 {
+    background-color: #34495e; /* gris foncé */
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 100px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+}
+.deconnexion:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
+/* Hover : effet interactif */
+.diff-btn:hover , .diff-btn2:hover ,.restartbtn:hover, .home_button:hover , .menu-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
+.diff-btn:active , .diff-btn2:active , .restartbtn:active, .home_button:active , .menu-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px #444;
+}
+
+
+/*Bouton pour les règles */
+
+.tooltip-btn {
+    position: relative;       /* nécessaire pour placer l’info-bulle */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 100px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+}
+.tooltip-btn:hover {
+    background-color: #172129;
+}
+/* L’info-bulle, cachée par défaut */
+.tooltip-btn .tooltip-text {
+    visibility: hidden;       /* caché au départ */
+    width: 200px;
+    background-color: rgb(0, 0, 0);
+    color: #d40a0a;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 6px;
+    
+    position: absolute;
+    bottom: -100%;             /*à gauche  du bouton */ 
+    left: 0%;
+    transform: translateX(-50%);
+    
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+/* Affichage au survol */
+.tooltip-btn:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+.currentPlayer {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: blue;
+}
+
+.restartbtn {
+    font-family: 'Arial Black', cursive;
+    display: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background-color: #2ecc71; /* vert */
+    color: rgb(0, 0, 0);
+}
+
+.power4-body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-repeat: no-repeat;
+}
+
+
+.home_button{  
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 8px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+    background-color: #3498db; /* bleu */
+}
+#login-title {
+    font-family: 'Arial Black', sans-serif;
+    color: #f92e0a; /* rouge vif type maillot */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px #000; /* effet relief */
+    text-align: center;
+    margin: 100px auto;
+    font-size: 32px;
+}
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label[for="username"]{
+    font-family: 'Arial Black', cursive;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+label[for="password"],label[for="email"]{
+    font-family: 'Arial Black', cursive;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+#password, #username, #email{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+button[type="submit"],button[type="ok"] {
+    font-family: 'Arial Black', cursive;
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+p{ /*pour le lien vers l'inscription*/
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+address {
+    font-style: normal;
+    font-size: 20px;
+    margin-top: 20px;
+}
+.match-image {
+    width: 625px;       
+    height: auto;       
+    transform: translateX(-105px);
+    border-radius: 15px;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.profile-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le contenu (optionnel) */
+    background: linear-gradient(to left, rgb(12, 22, 68), #add8e6, blue);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.profile-info {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    background: linear-gradient(to left , rgb(255, 0, 0),white,rgb(0, 21, 255));
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    font-size: 20px;    
+    margin-top: 20px;
+    border : 2px solid #fff;
+}
+
+strong {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    color: #545d54; /* jaune vif */
+}
+.menu-button {
+    color: rgb(230, 129, 13);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: linear-gradient(to right , rgb(7, 14, 46),rgb(253, 253, 253),rgb(128, 114, 234));
+    padding: 0px;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 10px ;
+    width: 200px;
+    border: 2px solid #000000;
+    font-size: 30px;
+}
