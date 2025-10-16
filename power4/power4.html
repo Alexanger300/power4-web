@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Puissance 4</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="power4-body">
   <h1>Puissance 4</h1>
@@ -54,7 +54,7 @@ function renderBoard() {
 
             if (board[r][c]) {
                 const img = document.createElement('img');
-                img.src = board[r][c] === 'Paris' ? '/css/images/PSG.png' : '/css/images/BAR.png';
+                img.src = board[r][c] === 'Paris' ? '../css/images/PSG.png' : '../css/images/BAR.png';
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.borderRadius = '50%';
@@ -120,12 +120,22 @@ function play(col) {
         return;
     }
 
-    if (board.flat().every(cell => cell !== '')) {
-        winnerDiv.textContent = "Match nul !";
-        disableButtons();
-        restartBtn.style.display = 'inline-block';
-        return;
-    }
+   if (board.flat().every(cell => cell !== '')) {
+    const boardDiv = document.getElementById('board');
+
+    // On vide le plateau et on met une grande image à la place
+    boardDiv.innerHTML = `
+        <img src="../css/images/Match-nul.jpg"
+             alt="Match nul"
+             class="match-image">
+    `;
+
+    // On affiche le message et le bouton
+    winnerDiv.textContent = "Match nul !";
+    disableButtons();
+    restartBtn.style.display = 'inline-block';
+    return;
+}
     currentPlayer = currentPlayer === 'Paris' ? 'Barcelone' : 'Paris';
     document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
 }

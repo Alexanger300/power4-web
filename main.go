@@ -20,7 +20,7 @@ func main() {
 
 	// Page d'accueil
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./login/login.html")
+		http.ServeFile(w, r, "./login/inscription.php")
 	})
 
 	port := ":8080"

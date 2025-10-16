@@ -16,17 +16,16 @@ try {
 if (isset($_POST['ok'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = md5($_POST['password']); // hachage MD5
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $requete = $db->prepare("INSERT INTO utilisateurs (pseudo, email, password) VALUES (:pseudo, :email, :password)");
+    $requete = $db->prepare("INSERT INTO utilisateurs (pseudo, email, password,token) VALUES (:pseudo, :email, :password,'')");
     $requete->execute([
         'pseudo' => $username,
         'email' => $email,
         'password' => $password
     ]);
-
-    header('Location: login.php');
     echo "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+    header('Location: login.php');
     exit;
 }
 ?>
