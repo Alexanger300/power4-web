@@ -21,7 +21,6 @@
       <button type="submit" name ="ok">S'inscrire</button>
 
       <address>Déjà un compte ? <a href="login.php">Connectez-vous ici</a></address>
-      <button class="home-button" type="button" onclick="window.location.href='../home_page/home_page.html'">Accueil</button>
     </form>
   </div>
 </body>

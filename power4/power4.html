@@ -11,7 +11,6 @@
   <!-- Boutons colonnes -->
   <div id="currentPlayer"></div>
   <div id="columns"></div>
-
   <!-- Grille -->
   <div id="board"></div>
   <div id="winnerMessage" style="font-size: 24px; color: green; margin-top: 10px;"></div>
@@ -20,7 +19,7 @@
 <script>
 const difficulty = localStorage.getItem('difficulty') || 'facile';
 let rows, cols;
-
+let antiGravity = false;
 if (difficulty === 'facile') { rows = 6; cols = 7; }
 else if (difficulty === 'moyen') { rows = 6; cols = 9; }
 else if (difficulty === 'difficile') { rows = 7; cols = 8; }
@@ -101,45 +100,67 @@ function checkWinner() {
 }
 
 function play(col) {
+    disableButtons();
+    toggleAIBtn.disabled = true
+    gravityBtn.disabled = true;
+
+    // Jouer le coup du joueur courant
+    if (!antiGravity) {
+    // Gravité normale
     for (let r = rows - 1; r >= 0; r--) {
         if (board[r][col] === '') {
             board[r][col] = currentPlayer;
             break;
         }
-        if (r === 0) return;
     }
+} else {
+    // Mode contre gravité
+    for (let r = 0; r < rows; r++) {
+        if (board[r][col] === '') {
+            board[r][col] = currentPlayer;
+            break;
+        }
+    }
+}
     renderBoard();
-    document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
-
-
     const winner = checkWinner();
     if (winner) {
         winnerDiv.textContent = `Le gagnant est : ${winner}`;
         disableButtons();
+        toggleAIBtn.disabled = false;
         restartBtn.style.display = 'inline-block';
         return;
     }
 
-   if (board.flat().every(cell => cell !== '')) {
-    const boardDiv = document.getElementById('board');
+    if (board.flat().every(cell => cell !== '')) {
+        boardDiv.innerHTML = `
+            <img src="../css/images/Match-nul.jpg" alt="Match nul" class="match-image">
+        `;
+        winnerDiv.textContent = "Match nul !";
+        disableButtons();
+        toggleAIBtn.disabled = false;
+        restartBtn.style.display = 'inline-block';
+        return;
+    }
 
-    // On vide le plateau et on met une grande image à la place
-    boardDiv.innerHTML = `
-        <img src="../css/images/Match-nul.jpg"
-             alt="Match nul"
-             class="match-image">
-    `;
-
-    // On affiche le message et le bouton
-    winnerDiv.textContent = "Match nul !";
-    disableButtons();
-    restartBtn.style.display = 'inline-block';
-    return;
-}
+    // Changer de joueur
     currentPlayer = currentPlayer === 'Paris' ? 'Barcelone' : 'Paris';
     document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
-}
 
+    // Si c'est le bot et qu'il est activé
+    if (botEnabled && currentPlayer === 'Barcelone') {
+        const chosen = botMoveMinimax(board.map(r => r.slice()));
+        if (chosen !== -1) {
+            setTimeout(() => play(chosen), botDelayMs);
+    }
+    } else {
+        // Réactiver les boutons pour le joueur humain
+        enableButtons();
+    }
+}
+function enableButtons() {
+    document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
+}
 function disableButtons() {
     document.querySelectorAll('#columns button').forEach(btn => btn.disabled = true);
 }
@@ -150,12 +171,241 @@ restartBtn.addEventListener('click', () => {
     winnerDiv.textContent = '';
     restartBtn.style.display = 'none';
     document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
-    renderBoard();
+    toggleAIBtn.disabled = false;
+    renderBoard();  
 
 });
 
 renderBoard();
 
+</script>
+<button onclick="Draw()" class="homebtn">Match Nul</button>
+<script>
+    function Draw(){
+        const boardDiv = document.getElementById('board');
+        // On vide le plateau et on met une grande image à la place
+        boardDiv.innerHTML = `
+        <img src="../css/images/Match-nul.jpg"
+             alt="Match nul"
+             class="match-image">
+    `;
+
+    // On affiche le message et le bouton   
+    winnerDiv.textContent = "Match nul !";
+    disableButtons();
+    restartBtn.style.display = 'inline-block';
+    return;
+    } 
+</script>
+<script>
+// Configuration du bot
+let botEnabled = false;           // Le bot est désactivé par défaut (B = bouton)
+const botDelayMs = 500;           // délai avant que le bot joue (500 ms)
+const minimaxDepth = 4;           // profondeur du minimax (ajuster si lent)
+
+// Creation du bouton pour activer/désactiver le bot
+const toggleAIBtn = document.createElement('button');
+toggleAIBtn.id = 'toggleAIBtn';
+toggleAIBtn.textContent = 'Activer IA (Barcelone)';
+toggleAIBtn.style.marginLeft = '10px';
+document.body.insertBefore(toggleAIBtn, document.getElementById('board').nextSibling);
+
+toggleAIBtn.addEventListener('click', () => {
+    botEnabled = !botEnabled;
+    toggleAIBtn.textContent = botEnabled ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
+    toggleAIBtn.classList.toggle('active', botEnabled);
+});
+
+// Les fonctions pour l'IA
+
+// Retourne colonnes valides
+function getValidMoves(bd) {
+    const cols = bd[0].length;
+    const moves = [];
+    for (let c = 0; c < cols; c++) {
+        if (bd[0][c] === '') moves.push(c);
+    }
+    return moves;
+}
+
+// Clone et applique un coup (ne modifie pas le board original)
+function applyMoveClone(bd, col, player) {
+    const newB = bd.map(row => row.slice());
+    for (let r = newB.length - 1; r >= 0; r--) {
+        if (newB[r][col] === '') {
+            newB[r][col] = player;
+            break;
+        }
+    }
+    return newB;
+}
+
+// Vérifie le gagnant pour un board donné (similaire à checkWinner mais sur un board passé en param)
+function checkWinnerSim(bd) {
+    const rows = bd.length;
+    const cols = bd[0].length;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const p = bd[r][c];
+            if (!p) continue;
+            // Horizontal
+            if (c + 3 < cols &&
+                bd[r][c+1] === p &&
+                bd[r][c+2] === p &&
+                bd[r][c+3] === p) return p;
+            // Vertical
+            if (r + 3 < rows &&
+                bd[r+1][c] === p &&
+                bd[r+2][c] === p &&
+                bd[r+3][c] === p) return p;
+            // Diag droite-bas
+            if (r + 3 < rows && c + 3 < cols &&
+                bd[r+1][c+1] === p &&
+                bd[r+2][c+2] === p &&
+                bd[r+3][c+3] === p) return p;
+            // Diag gauche-bas
+            if (r + 3 < rows && c - 3 >= 0 &&
+                bd[r+1][c-1] === p &&
+                bd[r+2][c-2] === p &&
+                bd[r+3][c-3] === p) return p;
+        }
+    }
+    return null;
+}
+
+// Le bot réfléchit et évalue le board
+function evaluateBoard(bd, botPlayer) {
+    const opp = botPlayer === 'Barcelone' ? 'Paris' : 'Barcelone';
+    if (checkWinnerSim(bd) === botPlayer) return 100000;
+    if (checkWinnerSim(bd) === opp) return -100000;
+
+    let score = 0;
+    const rows = bd.length;
+    const cols = bd[0].length;
+
+    // Le bot réfléchit si c'est avantageux de jouer au centre
+    const centerCol = Math.floor(cols / 2);
+    for (let r = 0; r < rows; r++) {
+        if (bd[r][centerCol] === botPlayer) score += 3;
+        if (bd[r][centerCol] === opp) score -= 3;
+    }
+
+    // le bot évalue les fenêtres de 4
+    function evalWindow(windowArr) {
+        let botCount = 0, oppCount = 0, emptyCount = 0;
+        for (const v of windowArr) {
+            if (v === botPlayer) botCount++;
+            else if (v === opp) oppCount++;
+            else emptyCount++;
+        }
+        if (botCount === 4) score += 1000;
+        else if (botCount === 3 && emptyCount === 1) score += 50;
+        else if (botCount === 2 && emptyCount === 2) score += 10;
+
+        if (oppCount === 4) score -= 1000;
+        else if (oppCount === 3 && emptyCount === 1) score -= 80; // bloquer prioritaire
+        else if (oppCount === 2 && emptyCount === 2) score -= 5;
+    }
+
+    // parcourir toutes fenêtres de 4
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols - 3; c++) {
+            evalWindow([bd[r][c], bd[r][c+1], bd[r][c+2], bd[r][c+3]]);
+        }
+    }
+    for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows - 3; r++) {
+            evalWindow([bd[r][c], bd[r+1][c], bd[r+2][c], bd[r+3][c]]);
+        }
+    }
+    for (let r = 0; r < rows - 3; r++) {
+        for (let c = 0; c < cols - 3; c++) {
+            evalWindow([bd[r][c], bd[r+1][c+1], bd[r+2][c+2], bd[r+3][c+3]]);
+        }
+    }
+    for (let r = 3; r < rows; r++) {
+        for (let c = 0; c < cols - 3; c++) {
+            evalWindow([bd[r][c], bd[r-1][c+1], bd[r-2][c+2], bd[r-3][c+3]]);
+        }
+    }
+
+    return score;
+}
+
+// Minimax avec élagage alpha-beta
+function minimax(bd, depth, alpha, beta, maximizingPlayer, botPlayer) {
+    const validMoves = getValidMoves(bd);
+    const winner = checkWinnerSim(bd);
+    const opp = botPlayer === 'Barcelone' ? 'Paris' : 'Barcelone';
+
+    if (depth === 0 || validMoves.length === 0 || winner !== null) {
+        return [evaluateBoard(bd, botPlayer), -1];
+    }
+
+    if (maximizingPlayer) {
+        let value = -Infinity;
+        let chosenCol = validMoves[0];
+        for (const col of validMoves) {
+            const child = applyMoveClone(bd, col, botPlayer);
+            const [childVal] = minimax(child, depth - 1, alpha, beta, false, botPlayer);
+            if (childVal > value) {
+                value = childVal;
+                chosenCol = col;
+            }
+            alpha = Math.max(alpha, value);
+            if (alpha >= beta) break; // coupe alpha-beta
+        }
+        return [value, chosenCol];
+    } else {
+        let value = Infinity;
+        let chosenCol = validMoves[0];
+        for (const col of validMoves) {
+            const child = applyMoveClone(bd, col, opp);
+            const [childVal] = minimax(child, depth - 1, alpha, beta, true, botPlayer);
+            if (childVal < value) {
+                value = childVal;
+                chosenCol = col;
+            }
+            beta = Math.min(beta, value);
+            if (alpha >= beta) break;
+        }
+        return [value, chosenCol];
+    }
+}
+
+// Wrapper pour obtenir la meilleure colonne
+function botMoveMinimax(bd, depth = minimaxDepth) {
+    const [, col] = minimax(bd, depth, -Infinity, Infinity, true, 'Barcelone');
+    // si col invalide (ex -1), retourne un coup aléatoire valide
+    const valids = getValidMoves(bd);
+    if (col === -1) {
+        return valids.length ? valids[Math.floor(Math.random() * valids.length)] : -1;
+    }
+    return col;
+}
+//restart du jeu
+restartBtn.addEventListener('click', () => {
+    board = Array.from({ length: rows }, () => Array(cols).fill(''));
+    currentPlayer = 'Paris';
+    winnerDiv.textContent = '';
+    restartBtn.style.display = 'none';
+    toggleAIBtn.disabled = false;
+    document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
+    renderBoard();
+});
+
+// Bouton pour le mode contre gravité
+const gravityBtn = document.createElement('button');
+gravityBtn.textContent = 'Activer contre gravité';
+gravityBtn.id = 'gravityBtn';
+gravityBtn.style.marginLeft = '10px';
+document.body.insertBefore(gravityBtn, document.getElementById('board').nextSibling);
+
+gravityBtn.addEventListener('click', () => {
+    antiGravity = !antiGravity;
+    gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité' : 'Activer contre gravité';
+    gravityBtn.classList.toggle('active', antiGravity);
+});
 </script>
 </body>
 </html>

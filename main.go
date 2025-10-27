@@ -3,14 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
-
-	"power4-web/game"
 )
 
 func main() {
 	// Initialisation du jeu
-	game.InitGame(6, 7)
-	game.ServeGameHandlers()
 
 	// Servir les fichiers statiques
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
