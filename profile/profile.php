@@ -35,7 +35,7 @@ if ($email && $token) {
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class = "profile-page">
-    <h1>Profil de l'utilisateur</h1>
+    <p class="profile-title">Profil de l'utilisateur</p>
         <?php if ($rep): ?>
             <p class="profile-info"><strong>Nom d'utilisateur:</strong><?php echo htmlspecialchars($rep['pseudo']); ?></p>
             <p class="profile-info"><strong>Email:</strong><?php echo htmlspecialchars($rep['email']); ?></p>
