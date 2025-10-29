@@ -140,28 +140,38 @@ function afficherImageVictoire(winner) {
     winnerDiv.textContent = `Le gagnant est : ${winner}`;
 
     // Définition des images selon le gagnant
-    let imageSrc;
-    let decalage = 0; // Valeur du décalage en pixels (modifie ici pour aller à droite)
+let imageSrc;
+let decalage = 0; // déplacement horizontal
+let vertical = 0; // déplacement vertical
+let etirement = 1; // facteur d'étirement (1 = normal)
 
-    switch (winner) {
-        case "Paris":
-            imageSrc = "../css/images/Dembele.png";
-            decalage = 210; // Plus ce nombre est grand, plus l’image va vers la droite
-            break;
-        case "Barcelone":
-            imageSrc = "../css/images/yamal.png";
-            decalage = 210; // Tu peux ajuster séparément pour chaque image
-            break;
-    }
-
-    // Insère l'image dans le terrain (board)
-    boardDiv.innerHTML = `
-        <div class="win-inside-board">
-            <img src="${imageSrc}" alt="Victoire de ${winner}" class="match-image" style="margin-left: ${decalage}px;">
-        </div>
-    `;
+switch (winner) {
+    case "Paris":
+        imageSrc = "../css/images/Dembele.png";
+        decalage = -110;
+        vertical = -30;
+        etirement = 1; // pas d'étirement
+        break;
+    case "Barcelone":
+        imageSrc = "../css/images/yamal.png";
+        decalage = -105;
+        vertical = 0;
+        etirement = 1.1; 
+        break;
 }
-
+boardDiv.innerHTML = `
+    <div class="win-inside-board">
+        <img src="${imageSrc}" 
+             alt="Victoire de ${winner}" 
+             class="match-image"
+             style="
+                margin-left: ${decalage}px;
+                margin-top: ${vertical}px;
+                transform: scaleY(${etirement});
+             ">
+    </div>
+`;
+}
 
     if (board.flat().every(cell => cell !== '')) {
         boardDiv.innerHTML = `
