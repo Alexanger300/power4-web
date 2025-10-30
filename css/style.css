@@ -366,3 +366,22 @@ strong {
     margin-top: 2px;
     font-size: 32px;
 }   
+
+/* Effet de chute du jeton */
+@keyframes dropToken {
+    0% {
+        transform: translateY(-300px);
+        opacity: 0.5;
+    }
+    80% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.token-drop {
+    animation: dropToken 0.5s ease-out forwards;
+}
