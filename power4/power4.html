@@ -6,16 +6,16 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="power4-body">
+  <button id="Return" class="Return" onclick="window.location.href='../home_page/home_page.html'">Retour au menu</button>
   <h1>Puissance 4</h1>
-
   <!-- Boutons colonnes -->
   <div id="currentPlayer"></div>
   <div id="columns"></div>
   <!-- Grille -->
+  <button id="restartBtn" class="restartbtn">Nouvelle partie</button>   
   <div id="board"></div>
-  <div id="winnerMessage" style="font-size: 24px; color: green; margin-top: 10px;"></div>
-  <button id="restartBtn" class="restartbtn">Nouvelle partie</button>
-
+  <div id="winnerMessage" style="font-size: 24px; color: green; margin-right: 10px;"></div>
+  
 <script>
 const difficulty = localStorage.getItem('difficulty') || 'facile';
 let rows, cols;
@@ -36,20 +36,25 @@ document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentP
 boardDiv.style.gridTemplateRows = `repeat(${rows}, 55px)`;
 boardDiv.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
 
-// Générer les boutons de colonnes dynamiques
-for (let c = 0; c < cols; c++) {
-    const btn = document.createElement('button');
-    btn.textContent = c + 1;
-    btn.addEventListener('click', () => play(c));
-    columnsDiv.appendChild(btn);
-}
-
-function renderBoard() {
+// Colonnes interactives
+   function renderBoard() {
     boardDiv.innerHTML = '';
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
+            cell.dataset.col = c; // nouvelle donnée : colonne
+            cell.style.border = '1px solid #0c3c66';
+            cell.style.borderRadius = '50%';
+            cell.style.backgroundColor = 'white';
+            cell.style.cursor = 'pointer';
+            cell.style.overflow = 'hidden';
+            cell.style.display = 'flex';
+            cell.style.alignItems = 'center';
+            cell.style.justifyContent = 'center';
+
+            // Ajoute le clic direct sur la cellule
+            cell.addEventListener('click', () => play(parseInt(cell.dataset.col)));
 
             if (board[r][c]) {
                 const img = document.createElement('img');
@@ -124,17 +129,58 @@ function play(col) {
 }
     renderBoard();
     const winner = checkWinner();
-    if (winner) {
-        winnerDiv.textContent = `Le gagnant est : ${winner}`;
-        disableButtons();
-        toggleAIBtn.disabled = false;
-        restartBtn.style.display = 'inline-block';
-        return;
-    }
+
+if (winner) {
+    afficherImageVictoire(winner);
+    disableButtons();
+    toggleAIBtn.disabled = false;
+    restartBtn.style.display = 'inline-block';
+    return;
+}
+
+/**
+ * Affiche l'image de victoire selon le camp gagnant
+ */
+function afficherImageVictoire(winner) {
+    winnerDiv.textContent = `Le gagnant est : ${winner}`;
+
+    // Définition des images selon le gagnant
+let imageSrc;
+let decalage = 0; // déplacement horizontal
+let vertical = 0; // déplacement vertical
+let etirement = 1; // facteur d'étirement (1 = normal)
+
+switch (winner) {
+    case "Paris":
+        imageSrc = "../css/images/Dembele.png";
+        decalage = -110;
+        vertical = -30;
+        etirement = 1; // pas d'étirement
+        break;
+    case "Barcelone":
+        imageSrc = "../css/images/yamal.png";
+        decalage = -105;
+        vertical = 0;
+        etirement = 1.1; 
+        break;
+}
+boardDiv.innerHTML = `
+    <div class="win-inside-board">
+        <img src="${imageSrc}" 
+             alt="Victoire de ${winner}" 
+             class="match-image"
+             style="
+                margin-left: ${decalage}px;
+                margin-top: ${vertical}px;
+                transform: scaleY(${etirement});
+             ">
+    </div>
+`;
+}
 
     if (board.flat().every(cell => cell !== '')) {
         boardDiv.innerHTML = `
-            <img src="../css/images/Match-nul.jpg" alt="Match nul" class="match-image">
+            <img src="../css/images/Match-nul.jpg" class="match-image">
         `;
         winnerDiv.textContent = "Match nul !";
         disableButtons();
@@ -201,7 +247,7 @@ renderBoard();
 // Configuration du bot
 let botEnabled = false;           // Le bot est désactivé par défaut (B = bouton)
 const botDelayMs = 500;           // délai avant que le bot joue (500 ms)
-const minimaxDepth = 4;           // profondeur du bot
+const minimaxDepth = 4;           // profondeur du minimax (ajuster si lent)
 
 // Creation du bouton pour activer/désactiver le bot
 const toggleAIBtn = document.createElement('button');
@@ -389,7 +435,8 @@ restartBtn.addEventListener('click', () => {
     currentPlayer = 'Paris';
     winnerDiv.textContent = '';
     restartBtn.style.display = 'none';
-    toggleAIBtn.disabled = false;
+    gravityBtn.disabled = false;
+    toggleAIBtn.disabled = false;   
     document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
     renderBoard();
 });

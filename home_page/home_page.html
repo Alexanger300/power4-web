@@ -9,18 +9,19 @@
 <body class = "home_page-body">
   <button class="tooltip-btn">
   Règles
-  <span class="tooltip-text"> Aligner 4 pions et vous gagnez </span>
-  <button class="History-btn" type="button" onclick="window.location.href='../history/history.html'">historique
+  <span class="tooltip-text"> Alignez 4 pions et vous gagnez </span>
+  <button class="History-btn" type="button" onclick="window.location.href='../history/history.html'">Histoire
 </button>
   <h1>Bienvenue au Puissance 4</h1>
   <h2>Choisissez la difficulté</h2>
 <div id="difficulty">
   <button class="diff-btn" data-diff="facile" onclick="chooseDifficulty('facile')">Facile</button>
   <button class="diff-btn" data-diff="moyen" onclick="chooseDifficulty('moyen')">Moyen</button>
-  <button class="diff-btn" data-diff="difficile" onclick="chooseDifficulty('difficile')">DiffiCile</button>
+  <button class="diff-btn" data-diff="difficile" onclick="chooseDifficulty('difficile')">Difficile</button>
 </div>
-  <button class="diff-btn2" type="button" onclick="window.location.href='../profile/profile.php'">Profile</button>
+  <button class="diff-btn2" type="button" onclick="window.location.href='../profile/profile.php'">Profil</button>
   <button class="diff-btn2" type="button" onclick="window.location.href='../login/login.php'">Connexion</button>
+  <button class="diff-btn2" type="button" onclick="window.location.href='../login/inscription.php'">Déconnexion</button>
   <script>
     function chooseDifficulty(level) {
       localStorage.setItem('difficulty', level);
