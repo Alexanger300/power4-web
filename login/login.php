@@ -36,8 +36,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $db->exec("UPDATE utilisateurs SET token = '$token' WHERE email = '$email'");
                 setcookie("token", $token, time() + 3600, "/"); // Cookie valide 1 heure
                 setcookie("email", $email, time() + 3600, "/"); // Cookie valide 1 heure
-                header('Location: ../home_page/home_page.html');
-                exit;
+                echo "<script>
+                localStorage.setItem('pseudo', '". addslashes($rep['pseudo']) ."');
+                window.location.href = '../home_page/home_page.html';
+      </script>";
+exit;
             } else {
                 $error_msg="Email ou mot de passe incorrect";
             }
@@ -71,3 +74,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </body>
 </html>
+

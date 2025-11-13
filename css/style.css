@@ -349,6 +349,7 @@ address {
 }
 
 .profile-info {
+    
     font-family: 'Arial Black', cursive;  /* style foot / fun */
     background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
     padding: 10px;
@@ -429,7 +430,7 @@ strong {
     margin: 100px auto;
     padding: 30px;
     border-radius: 10px;
-    background: linear-gradient(130deg, #F2B88A,#8AF2B9,#B98AF2);
+    background: linear-gradient(130deg, #0f269a,#9c83ef,#B98AF2);
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-bottom: 20px;
@@ -440,7 +441,94 @@ strong {
     text-align: center; 
     margin: 0;  
     padding: 20px;
-     background: linear-gradient(130deg, #F2B88A,#B98AF2);
+     background: linear-gradient(130deg, #161af1,#796197);
     background-size: cover;
     background-size: 120% auto; 
+}
+p {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+.profile-container{
+border: 3px solid #000000;
+  display: flex;                  /* aligne les enfants sur une même ligne */
+  justify-content: space-between; /* espace entre les deux blocs */
+  align-items: flex-start;        /* aligne les boîtes en haut */
+  width: 90%;                     /* largeur du conteneur */
+  margin: 0 auto;                 /* centre le conteneur */
+  gap: 40px;                      /* espace entre les deux blocs */
+}
+.profile-left, .profile-right {
+  flex: 1;                        /* prend la même largeur */
+  border-radius: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 300px;                          /* chaque côté prend la moitié de l’espace */
+}
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    color: #222;
+}
+
+/* Tableau */
+table {
+    border-collapse: collapse;
+    width: 70%;
+    margin: 40px auto;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 18px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* En-têtes cliquables */
+th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+th:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+/* Lignes alternées */
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+.classement-body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le contenu (optionnel) */
+    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
