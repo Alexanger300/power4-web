@@ -284,6 +284,15 @@ toggleAIBtn.addEventListener('click', () => {
     botEnabled = !botEnabled;
     toggleAIBtn.textContent = botEnabled ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
     toggleAIBtn.classList.toggle('active', botEnabled);
+    if (botEnabled) {
+        // Désactive le bouton du mode anti gravité
+        gravityBtn.disabled = true;
+        gravityBtn.textContent = "Le mode anti gravité  est désactive l'IA";
+    } else {
+        // Si l’anti-gravité est désactivée, réactive le bouton  mode anti gravité
+        gravityBtn.disabled = false;
+        gravityBtn.textContent = antiGravity ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
+    }
 });
 
 // Les fonctions pour l'IA
