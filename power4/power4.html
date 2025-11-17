@@ -20,6 +20,7 @@
 const difficulty = localStorage.getItem('difficulty') || 'facile';
 let rows, cols;
 let antiGravity = false;
+let ModeAntiGravity = false;
 let turnCount = 0;
 if (difficulty === 'facile') { rows = 6; cols = 7; }
 else if (difficulty === 'moyen') { rows = 6; cols = 9; }
@@ -109,6 +110,9 @@ function play(col) {
     disableButtons();
     toggleAIBtn.disabled = true
     gravityBtn.disabled = true;
+    if (antiGravity) {
+        ModeAntiGravity = true;
+    }
 
     // Jouer le coup du joueur courant
     if (!antiGravity) {
@@ -202,7 +206,7 @@ boardDiv.innerHTML = `
     turnCount++;
 
     // Tous les 3 tours, on active ou désactive automatiquement la gravité inversée
-    if (turnCount % 3 === 0) {
+    if (turnCount % 3 === 0 && ModeAntiGravity) {
     antiGravity = !antiGravity;
     gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité (auto)' : 'Activer contre gravité (auto)';
     gravityBtn.classList.toggle('active', antiGravity);
@@ -472,16 +476,12 @@ gravityBtn.addEventListener('click', () => {
     antiGravity = !antiGravity;
     gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité' : 'Activer contre gravité';
     gravityBtn.classList.toggle('active', antiGravity);
-    // ✅ Si anti-gravité activée, désactive ou supprime le bouton IA
     if (antiGravity) {
-        // Option 1 : Désactiver le bouton IA
+        // Désactive le bouton du mode IA
         toggleAIBtn.disabled = true;
         toggleAIBtn.textContent = "L'IA est désactivée en mode anti-gravité";
-
-        // Option 2 : Supprimer le bouton IA complètement
-        // toggleAIBtn.remove();
     } else {
-        // Si l’anti-gravité est désactivée, réactive le bouton IA
+        // Si l’anti-gravité est désactivée, réactive le bouton  mode IA
         toggleAIBtn.disabled = false;
         toggleAIBtn.textContent = botEnabled ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
     }
