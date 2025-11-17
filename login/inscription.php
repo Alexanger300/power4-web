@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <div id="login-title">Puissance 4 - Inscription</div>
 </head> 
-<body>
+<body class="inscription-page">
   <div class="login-container">
     <form action="traitement.php" method="POST">
       <label for="username">Nom d'utilisateur :</label>

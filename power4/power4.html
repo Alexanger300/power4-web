@@ -6,20 +6,21 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="power4-body">
+  <button id="Return" class="Return" onclick="window.location.href='../home_page/home_page.html'">Retour au menu</button>
   <h1>Puissance 4</h1>
-
   <!-- Boutons colonnes -->
   <div id="currentPlayer"></div>
   <div id="columns"></div>
   <!-- Grille -->
+  <button id="restartBtn" class="restartbtn">Nouvelle partie</button>   
   <div id="board"></div>
-  <div id="winnerMessage" style="font-size: 24px; color: green; margin-top: 10px;"></div>
-  <button id="restartBtn" class="restartbtn">Nouvelle partie</button>
-
+  <div id="winnerMessage" style="font-size: 24px; color: green; margin-right: 10px;"></div>
+  
 <script>
 const difficulty = localStorage.getItem('difficulty') || 'facile';
 let rows, cols;
 let antiGravity = false;
+let turnCount = 0;
 if (difficulty === 'facile') { rows = 6; cols = 7; }
 else if (difficulty === 'moyen') { rows = 6; cols = 9; }
 else if (difficulty === 'difficile') { rows = 7; cols = 8; }
@@ -36,20 +37,25 @@ document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentP
 boardDiv.style.gridTemplateRows = `repeat(${rows}, 55px)`;
 boardDiv.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
 
-// Générer les boutons de colonnes dynamiques
-for (let c = 0; c < cols; c++) {
-    const btn = document.createElement('button');
-    btn.textContent = c + 1;
-    btn.addEventListener('click', () => play(c));
-    columnsDiv.appendChild(btn);
-}
-
-function renderBoard() {
+// Colonnes interactives
+   function renderBoard() {
     boardDiv.innerHTML = '';
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
+            cell.dataset.col = c; // nouvelle donnée : colonne
+            cell.style.border = '1px solid #0c3c66';
+            cell.style.borderRadius = '50%';
+            cell.style.backgroundColor = 'white';
+            cell.style.cursor = 'pointer';
+            cell.style.overflow = 'hidden';
+            cell.style.display = 'flex';
+            cell.style.alignItems = 'center';
+            cell.style.justifyContent = 'center';
+
+            // Ajoute le clic direct sur la cellule
+            cell.addEventListener('click', () => play(parseInt(cell.dataset.col)));
 
             if (board[r][c]) {
                 const img = document.createElement('img');
@@ -127,11 +133,20 @@ function play(col) {
 
 if (winner) {
     afficherImageVictoire(winner);
+
+    // 🔥 Enregistrement du résultat en base
+    if (winner === 'Paris') {
+        ajouterVictoire('Paris');   // +1 victoire joueur humain
+    } else if (winner === 'Barcelone') {
+        ajouterDefaite('Paris');    // +1 défaite joueur humain
+    }
+
     disableButtons();
     toggleAIBtn.disabled = false;
     restartBtn.style.display = 'inline-block';
     return;
 }
+
 
 /**
  * Affiche l'image de victoire selon le camp gagnant
@@ -183,10 +198,20 @@ boardDiv.innerHTML = `
         restartBtn.style.display = 'inline-block';
         return;
     }
+    // Incrémente le nombre de tours joués
+    turnCount++;
+
+    // Tous les 3 tours, on active ou désactive automatiquement la gravité inversée
+    if (turnCount % 3 === 0) {
+    antiGravity = !antiGravity;
+    gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité (auto)' : 'Activer contre gravité (auto)';
+    gravityBtn.classList.toggle('active', antiGravity);
+}
 
     // Changer de joueur
     currentPlayer = currentPlayer === 'Paris' ? 'Barcelone' : 'Paris';
     document.getElementById('currentPlayer').textContent = `Tour actuel : ${currentPlayer}`;
+    
 
     // Si c'est le bot et qu'il est activé
     if (botEnabled && currentPlayer === 'Barcelone') {
@@ -242,7 +267,7 @@ renderBoard();
 // Configuration du bot
 let botEnabled = false;           // Le bot est désactivé par défaut (B = bouton)
 const botDelayMs = 500;           // délai avant que le bot joue (500 ms)
-const minimaxDepth = 4;           // profondeur du minimax (ajuster si lent)
+const minimaxDepth = 2;           //L'ia va essayer de deviner 2 coups à l'avance
 
 // Creation du bouton pour activer/désactiver le bot
 const toggleAIBtn = document.createElement('button');
@@ -430,7 +455,8 @@ restartBtn.addEventListener('click', () => {
     currentPlayer = 'Paris';
     winnerDiv.textContent = '';
     restartBtn.style.display = 'none';
-    toggleAIBtn.disabled = false;
+    gravityBtn.disabled = false;
+    toggleAIBtn.disabled = false;   
     document.querySelectorAll('#columns button').forEach(btn => btn.disabled = false);
     renderBoard();
 });
@@ -446,7 +472,53 @@ gravityBtn.addEventListener('click', () => {
     antiGravity = !antiGravity;
     gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité' : 'Activer contre gravité';
     gravityBtn.classList.toggle('active', antiGravity);
+    // ✅ Si anti-gravité activée, désactive ou supprime le bouton IA
+    if (antiGravity) {
+        // Option 1 : Désactiver le bouton IA
+        toggleAIBtn.disabled = true;
+        toggleAIBtn.textContent = "L'IA est désactivée en mode anti-gravité";
+
+        // Option 2 : Supprimer le bouton IA complètement
+        // toggleAIBtn.remove();
+    } else {
+        // Si l’anti-gravité est désactivée, réactive le bouton IA
+        toggleAIBtn.disabled = false;
+        toggleAIBtn.textContent = botEnabled ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
+    }
 });
+
+
+// === Enregistrement des victoires / défaites ===
+
+function ajouterVictoire(joueur) {
+    const pseudo = localStorage.getItem('pseudo'); // pseudo du joueur connecté
+    if (!pseudo) return; // pas de joueur connecté
+    if (joueur !== 'Paris') return; // seul Paris = joueur humain
+
+    fetch('victory.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'pseudo=' + encodeURIComponent(pseudo)
+    })
+    .then(res => res.text())
+    .then(data => console.log(data))
+    .catch(err => console.error("Erreur AJAX :", err));
+}
+
+function ajouterDefaite(joueur) {
+    const pseudo = localStorage.getItem('pseudo');
+    if (!pseudo) return;
+    if (joueur !== 'Paris') return;
+
+    fetch('defeat.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'pseudo=' + encodeURIComponent(pseudo)
+    })
+    .then(res => res.text())
+    .then(data => console.log(data))
+    .catch(err => console.error("Erreur AJAX :", err));
+}
 </script>
 </body>
 </html>
