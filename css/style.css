@@ -13,26 +13,7 @@ html, body {
     margin: 0;
     min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
 }
-.History-btn{
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
-    font-size: 18px;
-    padding: 12px 25px;
-    margin: 2px;
-    margin-right: 120px;
-    border: 2px solid #fff;
-    border-radius: 12px;
-    cursor: pointer;
-    color: white;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    box-shadow: 0 5px #666;
-    background-color: #3498db; /* bleu */
 
-}
-.History-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px #444;
-}
 h1 {
     font-family:'Arial Black', sans-serif;
     color: #ff5a47; /* rouge vif type maillot */
@@ -314,7 +295,7 @@ button[type="submit"],button[type="ok"] {
     cursor: pointer;
     font-size: 16px;
 }
-p{ /*pour le lien vers l'inscription*/
+p { /*pour le lien vers l'inscription*/
     font-size: 20px;
     color: rgb(0, 0, 0);
 }
@@ -334,32 +315,6 @@ address {
     color: red;
     font-weight: bold;
     margin-top: 15px;
-}
-.profile-page {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centre le contenu (optionnel) */
-    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.profile-info {
-    
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
-    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
-    padding: 10px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    font-size: 20px;    
-    margin-top: 20px;
-    border : 2px solid #fff;
 }
 
 strong {
@@ -414,17 +369,28 @@ strong {
     transform: translateY(3px);
     background-color: #0affeb;
 }
-.profile-title {
-    font-family: 'Arial Black', sans-serif;
-    color: #1b4599; /* rouge vif type maillot */
+   
+/* Histoire du Jeu CSS */
+.History-btn{
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 2px;
+    margin-right: 120px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px #ffffff; /* effet relief */
-    text-align: center;
-    margin-top: 2px;
-    font-size: 32px;
-}   
+    box-shadow: 0 5px #666;
+    background-color: #3498db; /* bleu */
 
+}
+.History-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
 .history-content {
     max-width: 400px;
     margin: 100px auto;
@@ -445,10 +411,16 @@ strong {
     background-size: cover;
     background-size: 120% auto; 
 }
-p {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 20px;
-    color: rgb(255, 255, 255);
+/* Profil Du Joueur CSS */
+.profile-title {
+    font-family: 'Arial Black', sans-serif;
+    color: #1b4599; /* rouge vif type maillot */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px #ffffff; /* effet relief */
+    text-align: center;
+    margin-top: 2px;
+    font-size: 32px;
 }
 .profile-container{
 border: 3px solid #000000;
@@ -459,14 +431,89 @@ border: 3px solid #000000;
   margin: 0 auto;                 /* centre le conteneur */
   gap: 40px;                      /* espace entre les deux blocs */
 }
-.profile-left, .profile-right {
+.profile-left{
   flex: 1;                        /* prend la même largeur */
   border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
   min-height: 300px;                          /* chaque côté prend la moitié de l’espace */
 }
-/* Style général */
+ .profile-right{
+    flex: 1;                        /* prend la même largeur */
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 300px;
+    border-width: 10px;                          /* chaque côté prend la moitié de l’espace */
+ }
+.profile-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le contenu (optionnel) */
+    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.profile-info {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    font-size: 20px;    
+    margin-top: 20px;
+    border : 2px solid #fff;
+}
+#profile-photo-label {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: center;
+    max-width: 400px;
+    font-size: 20px;    
+    margin-top: 20px;
+    margin-left: 330px;
+    border : 2px solid #fff;
+}
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer; /* pour montrer que c’est cliquable */
+    transition: transform 0.2s;
+    border:2px solid #000000;
+}
+button[name="upload"]{
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 8px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+    background-color: #3498db; /* bleu */
+}
+
+button[name="upload"]:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
+/* Classement CSS */
+
 body {
     font-family: Arial, sans-serif;
     background: #f7f7f7;
@@ -474,14 +521,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
-/* Titre principal */
-h1 {
-    text-align: center;
-    margin-top: 40px;
-    color: #222;
-}
-
 /* Tableau */
 table {
     border-collapse: collapse;
