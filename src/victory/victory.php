@@ -10,7 +10,7 @@ $pseudo = $_POST['pseudo'];
 $serveur = "localhost";
 $utilisateur = "root";
 $motdepasse = "";
-$basededonnees = "site-web";    
+$basededonnees = "site-web2";    
 
 $conn = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
 
@@ -19,7 +19,7 @@ if ($conn->connect_error) {
     die("Erreur de connexion : " . $conn->connect_error);
 }
 
-// ✅ Nom de colonne avec accent : il faut le mettre entre backticks (`défaites`)
+// Nom de colonne avec accent : il faut le mettre entre backticks (`défaites`)
 $sql = "UPDATE utilisateurs SET victoires = victoires + 1 WHERE pseudo = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $pseudo);

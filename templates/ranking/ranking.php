@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "site-web"; // Nom de la base de données
+$dbname = "site-web2"; // Nom de la base de données
 
 try {
     $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
@@ -23,7 +23,9 @@ $resultat = $db->query($sql);
     <title>Classement des joueurs</title>
     <link rel="stylesheet" href="../../assets/style/style.css">
 </head>
+
 <body class="classement-body">
+<button id="Return" class="Return" onclick="window.location.href='../home_page/home_page.html'">Retour au menu</button>
 <h1>🏆 Classement des joueurs 🏆</h1>
 
 <table id="classement">

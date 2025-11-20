@@ -504,14 +504,20 @@ function ajouterVictoire(joueur) {
     if (!pseudo) return; // pas de joueur connecté
     if (joueur !== 'Paris') return; // seul Paris = joueur humain
 
-    fetch('victory.php', {
+    // chemin absolu depuis la racine du serveur vers src/victory/victory.php
+    fetch('/ProjetHangMan/power4-web/src/victory/victory.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'pseudo=' + encodeURIComponent(pseudo)
     })
-    .then(res => res.text())
-    .then(data => console.log(data))
-    .catch(err => console.error("Erreur AJAX :", err));
+    .then(res => res.text().then(text => {
+        if (!res.ok) {
+            console.error('Erreur serveur (victoire) :', res.status, text);
+        } else {
+            console.log('Succès (victoire) :', text);
+        }
+    }))
+    .catch(err => console.error("Erreur AJAX (victoire) :", err));
 }
 
 function ajouterDefaite(joueur) {
@@ -519,14 +525,20 @@ function ajouterDefaite(joueur) {
     if (!pseudo) return;
     if (joueur !== 'Paris') return;
 
-    fetch('defeat.php', {
+    // chemin absolu depuis la racine du serveur vers src/defeat/defeat.php
+    fetch('/ProjetHangMan/power4-web/src/defeat/defeat.php', {  
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'pseudo=' + encodeURIComponent(pseudo)
     })
-    .then(res => res.text())
-    .then(data => console.log(data))
-    .catch(err => console.error("Erreur AJAX :", err));
+    .then(res => res.text().then(text => {
+        if (!res.ok) {
+            console.error('Erreur serveur (défaite) :', res.status, text);
+        } else {
+            console.log('Succès (défaite) :', text);
+        }
+    }))
+    .catch(err => console.error("Erreur AJAX (défaite) :", err));
 }
 </script>
 </body>
