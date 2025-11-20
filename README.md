@@ -8,7 +8,8 @@ go run main.go
 
 
 Fonctions Clés:
-Le main.go est le fichier le plus important car sans lui le site ne peux pas se lancer, en effet il ouvre le navigateur et permet également d'ouvrir la base de données phpmyadmin.power4.html est également une fonction indispensable car elle gere le systeme de jeu(Victoire, Match nul, Ia) et le js (L'interface en général).
+Le main.go est le fichier le plus important car sans lui le site ne peux pas se lancer, en effet il ouvre le navigateur l'accueil du jeu
+power4.html est également une fonction indispensable car elle gere le systeme de jeu(Victoire, Match nul, Ia) et le js (L'interface en général).
 
 Décisions architécture:
 Notre achitécture repose sur un serveur html avec du go en back end. Egalement, notre architecture utilise php.myadmin
