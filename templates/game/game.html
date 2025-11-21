@@ -138,7 +138,7 @@ function play(col) {
 if (winner) {
     afficherImageVictoire(winner);
 
-    // 🔥 Enregistrement du résultat en base
+    //  Enregistrement victoire/défaite
     if (winner === 'Paris') {
         ajouterVictoire('Paris');   // +1 victoire joueur humain
     } else if (winner === 'Barcelone') {
@@ -152,13 +152,12 @@ if (winner) {
 }
 
 
-/**
- * Affiche l'image de victoire selon le camp gagnant
- */
+
+/*  Affiche l'image de victoire selon le camp gagnant */
 function afficherImageVictoire(winner) {
     winnerDiv.textContent = `Le gagnant est : ${winner}`;
 
-    // Définition des images selon le gagnant
+    // taille des images selon le gagnant
 let imageSrc;
 let decalage = 0; // déplacement horizontal
 let vertical = 0; // déplacement vertical
@@ -269,7 +268,7 @@ renderBoard();
 </script>
 <script>
 // Configuration du bot
-let botEnabled = false;           // Le bot est désactivé par défaut (B = bouton)
+let botEnabled = false;           // Le bot est désactivé par défaut
 const botDelayMs = 500;           // délai avant que le bot joue (500 ms)
 const minimaxDepth = 2;           //L'ia va essayer de deviner 2 coups à l'avance
 
@@ -411,7 +410,7 @@ function evaluateBoard(bd, botPlayer) {
     return score;
 }
 
-// Minimax avec élagage alpha-beta
+// Eviter que le bot prenne trop de temps pour réfléchir
 function minimax(bd, depth, alpha, beta, maximizingPlayer, botPlayer) {
     const validMoves = getValidMoves(bd);
     const winner = checkWinnerSim(bd);
@@ -452,7 +451,7 @@ function minimax(bd, depth, alpha, beta, maximizingPlayer, botPlayer) {
     }
 }
 
-// Wrapper pour obtenir la meilleure colonne
+// trouve le meilleur coup pour le bot
 function botMoveMinimax(bd, depth = minimaxDepth) {
     const [, col] = minimax(bd, depth, -Infinity, Infinity, true, 'Barcelone');
     // si col invalide (ex -1), retourne un coup aléatoire valide

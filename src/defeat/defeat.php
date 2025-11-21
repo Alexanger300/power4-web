@@ -19,7 +19,7 @@ if ($conn->connect_error) {
     die("Erreur de connexion : " . $conn->connect_error);
 }
 
-//  colonne "défaites" avec accent → entourée de backticks !
+//  ajoute une défaite au joueur
 $sql = "UPDATE utilisateurs SET `défaites` = `défaites` + 1 WHERE pseudo = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $pseudo);

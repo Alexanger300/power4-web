@@ -2,11 +2,11 @@
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 0px;
     background: linear-gradient(180deg,#0f269a,#1d9bc1,#0ae906);
     background-size: cover;
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: 150% auto;
 }
 html, body {
     height: 100%;
@@ -440,17 +440,17 @@ strong {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    min-height: 100vh; /* Prend toute la hauteur visible de l'écran */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre le contenu (optionnel) */
+    justify-content: center; /* Centre le contenu  */
     background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .profile-info {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive; 
     background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
     padding: 10px;
     border-radius: 15px;
@@ -461,30 +461,8 @@ strong {
     margin-top: 20px;
     border : 2px solid #fff;
 }
-#profile-photo-label {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
-    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
-    padding: 10px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: center;
-    max-width: 400px;
-    font-size: 20px;    
-    margin-top: 20px;
-    margin-left: 330px;
-    border : 2px solid #fff;
-}
-.profile-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer; /* pour montrer que c’est cliquable */
-    transition: transform 0.2s;
-    border:2px solid #000000;
-}
 button[name="upload"]{
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive;
     font-size: 18px;
     padding: 12px 25px;
     margin: 8px;
@@ -553,7 +531,7 @@ tr:hover {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    min-height: 100vh; /*Prend toute la hauteur visible de l'écran */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centre le contenu (optionnel) */

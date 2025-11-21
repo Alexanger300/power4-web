@@ -11,7 +11,7 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-// Vérifier que les cookies existent
+// Vérifie que les cookies existent
 $email = $_COOKIE['email'] ?? '';
 $token = $_COOKIE['token'] ?? '';
 

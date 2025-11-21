@@ -26,7 +26,7 @@ $resultat = $db->query($sql);
 
 <body class="classement-body">
 <button id="Return" class="Return" onclick="window.location.href='../home_page/home_page.html'">Retour au menu</button>
-<h1>🏆 Classement des joueurs 🏆</h1>
+<h1>🏆 Classement des joueurs </h1>
 
 <table id="classement">
     <thead>
