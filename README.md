@@ -8,11 +8,10 @@ go run main.go
 
 
 Fonctions Clés:
-Le main.go est le fichier le plus important car sans lui le site ne peux pas se lancer, en effet il ouvre le navigateur l'accueil du jeu
-power4.html est également une fonction indispensable car elle gere le systeme de jeu(Victoire, Match nul, Ia) et le js (L'interface en général).
+Les fonctions importantes sont les fonctions pour l'ia de notre jeu ,ce qui donne à l'utilisateurs la sensation d'être dans une vraie partie contre un vrai joueur,nous avons ensuite utiliser une fonction renderboard qui génère ,selon la difficulté choisis,le board qui lui est attribué.
 
 Décisions architécture:
-Notre achitécture repose sur un serveur html avec du go en back end. Egalement, notre architecture utilise php.myadmin
+Notre architecture  repose sur un serveur html avec du go en back end. Egalement, notre architecture utilise php.myadmin qui est la base de donnée 
 
 Compromis Techniques:
 A la base le projet était de séparer les fichier front end qui aurait comporté le visuel global du site et un back end qui aurait comporté la logique du jeu. Finalement nous avons opté pour une fusion, ce qui s'est averré être une bonne solution
