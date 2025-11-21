@@ -3,7 +3,7 @@
     text-align: center;
     margin: 0;
     padding: 20px;
-    background:url("./images/StadeDeFoot.jpg");
+    background: linear-gradient(180deg,#0f269a,#1d9bc1,#0ae906);
     background-size: cover;
     background-repeat: no-repeat;
     background-size: 100% auto;
@@ -11,32 +11,12 @@
 html, body {
     height: 100%;
     margin: 0;
-    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    min-height: 100vh;
 }
-.History-btn{
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
-    font-size: 18px;
-    padding: 12px 25px;
-    margin: 2px;
-    margin-right: 120px;
-    border: 2px solid #fff;
-    border-radius: 12px;
-    cursor: pointer;
-    color: white;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    box-shadow: 0 5px #666;
-    background-color: #3498db; /* bleu */
 
-}
-.History-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px #444;
-}
 h1 {
     font-family:'Arial Black', sans-serif;
-    color: #ff5a47; /* rouge vif type maillot */
-    text-transform: uppercase;
+    color: #ff5a47; 
     letter-spacing: 2px;
     text-shadow: 1px 2px #ffffff; /* effet relief */
     margin: 100px auto 20px auto;
@@ -50,7 +30,7 @@ h2 {
 }
 
 .Return {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive; 
     font-size: 18px;
     padding: 12px 25px;
     margin: 8px;
@@ -110,7 +90,7 @@ h2 {
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
 .diff-btn {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive;  
     font-size: 18px;
     padding: 20px 25px;
     margin: 20px;
@@ -135,7 +115,7 @@ h2 {
 }
 .diff-btn2 {
     background-color: #34495e; /* gris foncé */
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive;  
     font-size: 18px;
     padding: 12px 25px; 
     margin: 25px;   
@@ -223,7 +203,7 @@ h2 {
 }
 
 .power4-body {
-    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
+    background: linear-gradient(90deg, rgb(12, 22, 68), #add8e6, rgb(240, 0, 0));
     background-attachment: fixed; /* reste fixe même quand on défile */
     background-repeat: no-repeat; /* empêche toute répétition du dégradé */
     background-size: cover;       /* couvre toute la zone visible */
@@ -235,7 +215,7 @@ h2 {
 
 
 .home_button{  
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive;  
     font-size: 18px;
     padding: 12px 25px;
     margin: 8px;
@@ -246,14 +226,14 @@ h2 {
     transition: all 0.2s;
     text-transform: uppercase;
     box-shadow: 0 5px #666;
-    background-color: #3498db; /* bleu */
+    background-color: #3498db; 
 }
 #login-title {
     font-family: 'Arial Black', sans-serif;
-    color: #f92e0a; /* rouge vif type maillot */
+    color: #f92e0a; 
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 2px 2px #000; /* effet relief */
+    text-shadow: 2px 2px #000; 
     text-align: center;
     margin: 100px auto;
     font-size: 32px;
@@ -274,11 +254,11 @@ h2 {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centre le contenu (optionnel) */
-    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
+    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, rgb(255, 89, 0));
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -314,7 +294,7 @@ button[type="submit"],button[type="ok"] {
     cursor: pointer;
     font-size: 16px;
 }
-p{ /*pour le lien vers l'inscription*/
+p { 
     font-size: 20px;
     color: rgb(0, 0, 0);
 }
@@ -335,41 +315,15 @@ address {
     font-weight: bold;
     margin-top: 15px;
 }
-.profile-page {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centre le contenu (optionnel) */
-    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.profile-info {
-    
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
-    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
-    padding: 10px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    font-size: 20px;    
-    margin-top: 20px;
-    border : 2px solid #fff;
-}
 
 strong {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
-    color: #545d54; /* jaune vif */
+    font-family: 'Arial Black', cursive; 
+    color: #545d54; 
 }
 .menu-button {
     color: rgb(9, 47, 197);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background: linear-gradient(300deg , rgb(144, 161, 237),rgb(253, 253, 253),rgb(128, 114, 234));
+    background: linear-gradient(300deg , rgb(144, 161, 237),rgb(253, 253, 253),rgb(255, 0, 0));
     padding: 0px;
     border-radius: 10px;
     margin: 0 auto;
@@ -379,7 +333,7 @@ strong {
     font-size: 30px;
 }
 #toggleAIBtn {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive; 
     font-size: 18px;
     padding: 12px 25px;
     margin: 8px;
@@ -393,7 +347,7 @@ strong {
     background-color: #8e44ad; /* violet */
 }
 #gravityBtn {
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive; 
     font-size: 18px;
     padding: 12px 25px;
     margin: 8px;
@@ -414,17 +368,28 @@ strong {
     transform: translateY(3px);
     background-color: #0affeb;
 }
-.profile-title {
-    font-family: 'Arial Black', sans-serif;
-    color: #1b4599; /* rouge vif type maillot */
+   
+/* Histoire du Jeu CSS */
+.History-btn{
+    font-family: 'Arial Black', cursive; 
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 2px;
+    margin-right: 120px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px #ffffff; /* effet relief */
-    text-align: center;
-    margin-top: 2px;
-    font-size: 32px;
-}   
+    box-shadow: 0 5px #666;
+    background-color: #3498db; /* bleu */
 
+}
+.History-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
 .history-content {
     max-width: 400px;
     margin: 100px auto;
@@ -445,28 +410,100 @@ strong {
     background-size: cover;
     background-size: 120% auto; 
 }
-p {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 20px;
-    color: rgb(255, 255, 255);
+/* Profil Du Joueur CSS */
+.profile-title {
+    font-family: 'Arial Black', sans-serif;
+    color: #1b4599;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px #ffffff; /* effet relief */
+    text-align: center;
+    margin-top: 2px;
+    font-size: 32px;
 }
 .profile-container{
-border: 3px solid #000000;
-  display: flex;                  /* aligne les enfants sur une même ligne */
-  justify-content: space-between; /* espace entre les deux blocs */
-  align-items: flex-start;        /* aligne les boîtes en haut */
-  width: 90%;                     /* largeur du conteneur */
+  display: flex;                  
+  justify-content: space-between; 
+  align-items: flex-start;       
+  width: 90%;                     
   margin: 0 auto;                 /* centre le conteneur */
-  gap: 40px;                      /* espace entre les deux blocs */
+  gap: 40px;                     
 }
-.profile-left, .profile-right {
+.profile-left{
   flex: 1;                        /* prend la même largeur */
   border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
   min-height: 300px;                          /* chaque côté prend la moitié de l’espace */
 }
-/* Style général */
+.profile-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    min-height: 100vh; /* ⭐ Prend toute la hauteur visible de l'écran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le contenu (optionnel) */
+    background: linear-gradient(280deg, rgb(12, 22, 68), #add8e6, blue);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.profile-info {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    font-size: 20px;    
+    margin-top: 20px;
+    border : 2px solid #fff;
+}
+#profile-photo-label {
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    background: linear-gradient(320deg, rgb(124, 91, 91), white, rgb(0, 21, 255));
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: center;
+    max-width: 400px;
+    font-size: 20px;    
+    margin-top: 20px;
+    margin-left: 330px;
+    border : 2px solid #fff;
+}
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer; /* pour montrer que c’est cliquable */
+    transition: transform 0.2s;
+    border:2px solid #000000;
+}
+button[name="upload"]{
+    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 8px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    box-shadow: 0 5px #666;
+    background-color: #3498db; /* bleu */
+}
+
+button[name="upload"]:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px #444;
+}
+/* Classement CSS */
+
 body {
     font-family: Arial, sans-serif;
     background: #f7f7f7;
@@ -474,14 +511,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
-/* Titre principal */
-h1 {
-    text-align: center;
-    margin-top: 40px;
-    color: #222;
-}
-
 /* Tableau */
 table {
     border-collapse: collapse;

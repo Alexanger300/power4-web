@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Puissance 4</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../../assets/style/style.css">
 </head>
 <body class="power4-body">
   <button id="Return" class="Return" onclick="window.location.href='../home_page/home_page.html'">Retour au menu</button>
@@ -20,6 +20,7 @@
 const difficulty = localStorage.getItem('difficulty') || 'facile';
 let rows, cols;
 let antiGravity = false;
+let ModeAntiGravity = false;
 let turnCount = 0;
 if (difficulty === 'facile') { rows = 6; cols = 7; }
 else if (difficulty === 'moyen') { rows = 6; cols = 9; }
@@ -59,7 +60,7 @@ boardDiv.style.gridTemplateColumns = `repeat(${cols}, 55px)`;
 
             if (board[r][c]) {
                 const img = document.createElement('img');
-                img.src = board[r][c] === 'Paris' ? '../css/images/PSG.png' : '../css/images/BAR.png';
+                img.src = board[r][c] === 'Paris' ? '../../assets/pictures/PSG.png' : '../../assets/pictures/BAR.png';
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.borderRadius = '50%';
@@ -107,8 +108,11 @@ function checkWinner() {
 
 function play(col) {
     disableButtons();
-    toggleAIBtn.disabled = true
-    gravityBtn.disabled = true;
+    toggleAIBtn.disabled = true; /*on désactive les touches durant la partie */
+    gravityBtn.disabled = true; /*on désactive les touches durant la partie */
+    if (antiGravity) {
+        ModeAntiGravity = true;
+    }
 
     // Jouer le coup du joueur courant
     if (!antiGravity) {
@@ -162,13 +166,13 @@ let etirement = 1; // facteur d'étirement (1 = normal)
 
 switch (winner) {
     case "Paris":
-        imageSrc = "../css/images/Dembele.png";
+        imageSrc = "../../assets/pictures/Dembele.png";
         decalage = -110;
         vertical = -30;
         etirement = 1; // pas d'étirement
         break;
     case "Barcelone":
-        imageSrc = "../css/images/yamal.png";
+        imageSrc = "../../assets/pictures/yamal.png";
         decalage = -105;
         vertical = 0;
         etirement = 1.1; 
@@ -202,7 +206,7 @@ boardDiv.innerHTML = `
     turnCount++;
 
     // Tous les 3 tours, on active ou désactive automatiquement la gravité inversée
-    if (turnCount % 3 === 0) {
+    if (turnCount % 3 === 0 && ModeAntiGravity) {
     antiGravity = !antiGravity;
     gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité (auto)' : 'Activer contre gravité (auto)';
     gravityBtn.classList.toggle('active', antiGravity);
@@ -251,9 +255,9 @@ renderBoard();
         const boardDiv = document.getElementById('board');
         // On vide le plateau et on met une grande image à la place
         boardDiv.innerHTML = `
-        <img src="../css/images/Match-nul.jpg"
+        <img src="../../assets/pictures/Match-nul.jpg"
              alt="Match nul"
-             class="match-image">
+             class="match-image">   
     `;
 
     // On affiche le message et le bouton   
@@ -280,6 +284,15 @@ toggleAIBtn.addEventListener('click', () => {
     botEnabled = !botEnabled;
     toggleAIBtn.textContent = botEnabled ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
     toggleAIBtn.classList.toggle('active', botEnabled);
+    if (botEnabled) {
+        // Désactive le bouton du mode anti gravité
+        gravityBtn.disabled = true;
+        gravityBtn.textContent = "Le mode anti gravité  est désactive l'IA";
+    } else {
+        // Si l’anti-gravité est désactivée, réactive le bouton  mode anti gravité
+        gravityBtn.disabled = false;
+        gravityBtn.textContent = antiGravity ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
+    }
 });
 
 // Les fonctions pour l'IA
@@ -472,16 +485,12 @@ gravityBtn.addEventListener('click', () => {
     antiGravity = !antiGravity;
     gravityBtn.textContent = antiGravity ? 'Désactiver contre gravité' : 'Activer contre gravité';
     gravityBtn.classList.toggle('active', antiGravity);
-    // ✅ Si anti-gravité activée, désactive ou supprime le bouton IA
     if (antiGravity) {
-        // Option 1 : Désactiver le bouton IA
+        // Désactive le bouton du mode IA
         toggleAIBtn.disabled = true;
         toggleAIBtn.textContent = "L'IA est désactivée en mode anti-gravité";
-
-        // Option 2 : Supprimer le bouton IA complètement
-        // toggleAIBtn.remove();
     } else {
-        // Si l’anti-gravité est désactivée, réactive le bouton IA
+        // Si l’anti-gravité est désactivée, réactive le bouton  mode IA
         toggleAIBtn.disabled = false;
         toggleAIBtn.textContent = botEnabled ? 'Désactiver IA (Barcelone)' : 'Activer IA (Barcelone)';
     }
@@ -495,14 +504,20 @@ function ajouterVictoire(joueur) {
     if (!pseudo) return; // pas de joueur connecté
     if (joueur !== 'Paris') return; // seul Paris = joueur humain
 
-    fetch('victory.php', {
+    // chemin absolu depuis la racine du serveur vers src/victory/victory.php
+    fetch('/ProjetHangMan/power4-web/src/victory/victory.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'pseudo=' + encodeURIComponent(pseudo)
     })
-    .then(res => res.text())
-    .then(data => console.log(data))
-    .catch(err => console.error("Erreur AJAX :", err));
+    .then(res => res.text().then(text => {
+        if (!res.ok) {
+            console.error('Erreur serveur (victoire) :', res.status, text);
+        } else {
+            console.log('Succès (victoire) :', text);
+        }
+    }))
+    .catch(err => console.error("Erreur AJAX (victoire) :", err));
 }
 
 function ajouterDefaite(joueur) {
@@ -510,14 +525,20 @@ function ajouterDefaite(joueur) {
     if (!pseudo) return;
     if (joueur !== 'Paris') return;
 
-    fetch('defeat.php', {
+    // chemin absolu depuis la racine du serveur vers src/defeat/defeat.php
+    fetch('/ProjetHangMan/power4-web/src/defeat/defeat.php', {  
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'pseudo=' + encodeURIComponent(pseudo)
     })
-    .then(res => res.text())
-    .then(data => console.log(data))
-    .catch(err => console.error("Erreur AJAX :", err));
+    .then(res => res.text().then(text => {
+        if (!res.ok) {
+            console.error('Erreur serveur (défaite) :', res.status, text);
+        } else {
+            console.log('Succès (défaite) :', text);
+        }
+    }))
+    .catch(err => console.error("Erreur AJAX (défaite) :", err));
 }
 </script>
 </body>

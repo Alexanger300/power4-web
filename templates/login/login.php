@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Puissance 4</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../../assets/style/style.css">
   <div id="login-title">Puissance 4 - Connexion</div>
 </head>
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "site-web";
+$dbname = "site-web2";
 
 try {
     $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
@@ -61,7 +61,7 @@ exit;
 
       <button type="ok">Se connecter</button>
 
-    <p>Pas encore de compte ? <a href="inscription.php">Inscrivez-vous ici</a></p>
+    <p>Pas encore de compte ? <a href="/ProjetHangMan/power4-web/templates/inscription/inscription.php">Inscrivez-vous ici</a></p>
     </form>
 
     <?php
@@ -74,4 +74,3 @@ exit;
   </div>
 </body>
 </html>
-

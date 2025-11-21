@@ -5,7 +5,7 @@ session_start();
 // Vider les variables de session
 $_SESSION = array();
 
-// Supprimer le cookie PHPSESSID
+// Supprimer le cookie qui est associé à la session
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -22,6 +22,6 @@ setcookie('token', '', time() - 3600, '/');
 session_destroy();
 
 // Redirection
-header("Location: ../login/login.php");
+header("Location: ../../templates/login/login.php");
 exit();
 ?>

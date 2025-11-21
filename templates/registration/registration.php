@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Puissance 4</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../../assets/style/style.css">
   <div id="login-title">Puissance 4 - Inscription</div>
 </head> 
 <body class="inscription-page">
   <div class="login-container">
-    <form action="traitement.php" method="POST">
+    <form action="/ProjetHangMan/power4-web/src/check/check.php" method="POST">
       <label for="username">Nom d'utilisateur :</label>
       <input type="text" id="username" name="username" required>
 
@@ -20,7 +20,7 @@
 
       <button type="submit" name ="ok">S'inscrire</button>
 
-      <address>Déjà un compte ? <a href="login.php">Connectez-vous ici</a></address>
+      <address>Déjà un compte ? <a href="/ProjetHangMan/power4-web/templates/login/login.php">Connectez-vous ici</a></address>
     </form>
   </div>
 </body>

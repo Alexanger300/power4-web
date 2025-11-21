@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "site-web";
+$dbname = "site-web2";
 
 try {
     $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
@@ -25,7 +25,7 @@ if (isset($_POST['ok'])) {
         'password' => $password
     ]);
     echo "Inscription réussie ! Vous pouvez maintenant vous connecter.";
-    header('Location: login.php');
+    header('Location: /ProjetHangMan/power4-web/templates/login/login.php');
     exit;
 }
 ?>
