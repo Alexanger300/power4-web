@@ -147,7 +147,7 @@ h2 {
 .tooltip-btn {
     float: left;    /* nécessaire pour placer l’info-bulle */
     position: relative; /* nécessaire pour placer l’info-bulle */
-    font-family: 'Arial Black', cursive;  /* style foot / fun */
+    font-family: 'Arial Black', cursive;  
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 100px;
